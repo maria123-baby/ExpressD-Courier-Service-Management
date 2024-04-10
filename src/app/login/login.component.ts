@@ -1,9 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+<<<<<<< HEAD
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+=======
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth.service';
+>>>>>>> 79c2a90a4eb9af1f66b697caa03ea4a27f9cf4b3
 
 @Component({
   selector: 'app-login',
@@ -12,6 +19,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+<<<<<<< HEAD
 export class LoginComponent implements OnInit{
   form1!:FormGroup;
   form2!:FormGroup;
@@ -50,4 +58,32 @@ ngOnInit(): void {
      .catch(error=>{
      })  ;
   }
+=======
+export class LoginComponent {
+  tform!:FormGroup;
+  constructor(private fb: FormBuilder,private http:HttpClient,private router: Router,private authService:AuthService){
+  this.tform=this.fb.nonNullable.group({
+    username:['',Validators.required],
+    email:['',Validators.required],
+    password:['',Validators.required],
+  });}
+  onSignup():void{
+    const rawForm=this.tform.getRawValue();
+    this.authService.register(rawForm.email,rawForm.username,rawForm.password)
+    .subscribe(()=>{
+      alert('Registered Successfully');
+      this.router.navigate(['/login']);
+    })
+  }
+  onlogin():void{
+    const rawForm=this.tform.getRawValue();
+    this.authService.login(rawForm.email,rawForm.password)
+    .subscribe({
+      next:()=>{
+      this.router.navigate(['/userdetails']);
+    }
+  });
+  }
+
+>>>>>>> 79c2a90a4eb9af1f66b697caa03ea4a27f9cf4b3
 }
