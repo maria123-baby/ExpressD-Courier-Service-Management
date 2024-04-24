@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyBOFkqgnDaH29KofCHjup3iWYVJRIzzsZQ",
+    apiKey: "your_api_key",
     authDomain: "courier-service-manageme-891b4.firebaseapp.com",
     databaseURL: "https://courier-service-manageme-891b4-default-rtdb.firebaseio.com",
     projectId: "courier-service-manageme-891b4",
