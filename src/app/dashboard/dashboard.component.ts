@@ -7,20 +7,49 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { IUser } from '../core/models/common.model';
 import { UserService } from '../core/services/user.service';
+import { firebaseConfig } from '../core/constants/constants';
+import firebase from 'firebase/compat/app';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports:[RouterModule,RouterLink],
+  imports:[RouterModule,RouterLink,FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 
 
 export class DashboardComponent {
-
+  
   details: IUser[]=[];
   totalExpenses=0;
-  constructor(private userService:UserService, private router:Router){}
+selectedValue: string='';
+  constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){
+    firebase.initializeApp(firebaseConfig);
+    
+   
+  }
+ 
+  updateUserdata(selectedvalue:string):void{
+    const field='status';
+    const currentUser=firebase.auth().currentUser;
+    if(currentUser){
+      const uid=currentUser.uid;
+      console.log(uid);
+     this.updatestatusfield(uid,field,selectedvalue);
+    
+    }
+    
+    
+    
+  } 
+  updatestatusfield(uid:string,status:string,selectedValue:string):Promise<void>{
+  
+    console.log(selectedValue);
+    const userref=this.db.object(`userdetails/user_id/${uid}`);
+    return userref.update({[status]:selectedValue})
+  }
   ngOnInit(): void {
     this. getAllDetails();
   }
@@ -33,6 +62,7 @@ export class DashboardComponent {
           this.details.push({
             key: item.key || '',
             package_id:detail.package_id,
+            order_id:detail.order_id,
             sender_name: detail.sender_name,
             sender_address: detail.sender_address,
             pincode_sender: detail.pincode_sender,
@@ -42,6 +72,7 @@ export class DashboardComponent {
             receiver_address: detail.receiver_address,
             pincode_receiver: detail.pincode_receiver,
             receiver_email: detail.receiver_email,
+            trackdetails:detail.trackdetails,
           })
         }) 
       },
@@ -52,4 +83,5 @@ export class DashboardComponent {
       this.userService.deleteExpense(key);
     }
 }
+
 }

@@ -8,6 +8,7 @@ body {
 button{
     margin:10px;
 }
+
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -18,12 +19,17 @@ button{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
-
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
 .row {
     display: flex;
     margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
+    height:450px;
 }
 
 .column {
@@ -59,7 +65,9 @@ button{
 .row button:hover {
     background-color: #1e606e; /* Darker blueish green on hover */
 }
-
+select{
+    color:white;
+}
 /* Attractive heading styles */
 h1 {
     font-size: 36px; /* Larger font size */

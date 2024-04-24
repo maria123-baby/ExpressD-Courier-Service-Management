@@ -20,7 +20,21 @@
             <p>Address: {{detail.receiver_address}}</p>
         </div>
         <div class="column" style="display: flex; align-items: center; justify-content: center;">
-            <button onclick="redirectToPackageStatus(detail.package_id)">Check Status</button>
+            <div class="dropdown dropdown--scrollable ">
+                <button (click)="updateUserdata(this.selectedValue)">
+                <select [(ngModel)]="selectedValue" style="background-color:#1e606e;">
+        
+                  Select
+               
+                <option>Booked</option>
+                <option>In Transit</option>
+                <option>Out for Delivery</option>
+                <option>Delivered</option>
+          
+            </select>
+            </button>
+        
+              </div>
             <button class="btn btn-sm btn-danger" (click)="removeExpense(detail.key!)">Remove</button>
         </div>
     </div> 

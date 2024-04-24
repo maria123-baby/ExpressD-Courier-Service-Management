@@ -15,6 +15,7 @@ import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getMessaging, provideMessaging } from '@angular/fire/messaging';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 NgModule({
   imports:[]
@@ -22,7 +23,7 @@ NgModule({
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
-    provideRouter(routes,withViewTransitions(),withComponentInputBinding()),
+    provideRouter(routes),
   
     importProvidersFrom([
      AngularFireModule.initializeApp(firebaseConfig),AngularFireAuthModule,AngularFireDatabaseModule,
@@ -32,7 +33,6 @@ export const appConfig: ApplicationConfig = {
      provideDatabase(() => getDatabase()), 
     provideFunctions(() => getFunctions()),
      provideMessaging(() => getMessaging())
-    ]),
+    ]), provideAnimationsAsync(),
   ],
 };
-

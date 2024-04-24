@@ -1,6 +1,7 @@
 export interface IUser{
     key?: string;
     package_id:string;
+    order_id:string;
     sender_name: string;
     sender_address: string;
     pincode_sender:string;
@@ -10,4 +11,15 @@ export interface IUser{
     receiver_address: string;
     pincode_receiver: string;
     receiver_email:string;
+    trackdetails:Array<{order_num:number,booked:boolean,picked:boolean,destined:boolean,delivered:boolean}>;
 }
+export interface UserData {
+    key?: string;
+    email: string;
+    role: Roles;
+    username:string;
+  }
+  export interface Roles{
+    admin?:boolean;
+    user?:boolean;
+  }

@@ -11,6 +11,7 @@ export class UserService {
   userRef: AngularFireList<any>;
   constructor(private db: AngularFireDatabase) {
     this.userRef = db.list(this.dbPath);
+    
    }
    getAllDetails(){
     return this.userRef;
@@ -24,4 +25,8 @@ export class UserService {
    deleteExpense(key: string){
     return this.userRef.remove(key);
     }
+    
+  
+
+
 }

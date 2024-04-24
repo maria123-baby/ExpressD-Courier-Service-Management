@@ -43,10 +43,18 @@ ngOnInit(): void {
       })  ;
   }
   onlogin(){
-    const {email,password}= this.form2.value;
-    this.auth.signInWithEmailAndPassword(email,password).then(response=>{
-        this.router.navigateByUrl('/userdetails');
-    })
+    const { email, password } = this.form2.value;
+    this.auth.signInWithEmailAndPassword(email, password)
+        .then(response => {
+            console.log('hello', response.user?.uid);
+            let user = response.user?.uid;
+            if (user) {
+                localStorage.setItem('users', user);
+                this.router.navigateByUrl('/userdetails');
+            } else {
+                // Handle the case where user is undefined
+            }
+        })
      .catch(error=>{
      })  ;
   }
