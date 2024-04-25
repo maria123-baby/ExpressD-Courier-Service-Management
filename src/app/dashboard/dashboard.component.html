@@ -20,16 +20,18 @@
             <p>Address: {{detail.receiver_address}}</p>
         </div>
         <div class="column" style="display: flex; align-items: center; justify-content: center;">
+            
             <div class="dropdown dropdown--scrollable ">
-                <button (click)="updateUserdata(this.selectedValue)">
-                <select [(ngModel)]="selectedValue" style="background-color:#1e606e;">
+                <button (click)="updateUserdata(detail.key!,this.selectedValue)">
+                <select [(ngModel)]="selectedValue" style="background-color:#1e606e;color:white" >
         
-                  Select
+                  <div style="color:white;">{{selectedValue}}</div>
                
-                <option>Booked</option>
-                <option>In Transit</option>
-                <option>Out for Delivery</option>
-                <option>Delivered</option>
+                <option value="Booked">Booked</option>
+                <option value="Pickup">Pickup</option>
+                <option value="InTransit">In Transit</option>
+                <option value="Outfordelivery">Out for Delivery</option>
+                <option value="Delivered">Delivered</option>
           
             </select>
             </button>

@@ -14,7 +14,7 @@ import { FormsModule} from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports:[RouterModule,RouterLink,FormsModule],
+  imports:[RouterModule,RouterLink,FormsModule,CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -25,30 +25,34 @@ export class DashboardComponent {
   details: IUser[]=[];
   totalExpenses=0;
 selectedValue: string='';
+
   constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){
-    firebase.initializeApp(firebaseConfig);
+    
     
    
   }
  
-  updateUserdata(selectedvalue:string):void{
+  updateUserdata(key:string,selectedvalue:string):void{
     const field='status';
+    const ItemRef = this.db.list('userdetails');
+  
     const currentUser=firebase.auth().currentUser;
     if(currentUser){
       const uid=currentUser.uid;
       console.log(uid);
-     this.updatestatusfield(uid,field,selectedvalue);
+      
+     this.updatestatusfield(key,selectedvalue);
     
     }
     
     
     
   } 
-  updatestatusfield(uid:string,status:string,selectedValue:string):Promise<void>{
+  updatestatusfield(key:string,selectedValue:string):Promise<void>{
   
     console.log(selectedValue);
-    const userref=this.db.object(`userdetails/user_id/${uid}`);
-    return userref.update({[status]:selectedValue})
+
+    return this.db.object(`userdetails/${key}/trackdetails`).update({ [selectedValue]: true });
   }
   ngOnInit(): void {
     this. getAllDetails();

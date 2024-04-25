@@ -15,6 +15,7 @@ export interface Step {
 
 export class TrackComponent {
   steps: Step[] = [
+    
     { label: 'Booked', completed: false },
     { label: 'Pickup', completed: false },
     { label: 'In Transit', completed: false },

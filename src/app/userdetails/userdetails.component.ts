@@ -8,7 +8,8 @@ import { DataService } from '../data.service';
 import { TrackComponent } from '../track/track.component';
 import { getAuth } from '@angular/fire/auth';
 import { signOut } from 'firebase/auth';
-
+import { TrackingComponent } from '../tracking/tracking.component';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 @Component({
   selector: 'app-userdetails',
   standalone: true,
@@ -18,10 +19,12 @@ import { signOut } from 'firebase/auth';
 })
 export class UserdetailsComponent implements OnInit{
   
-  users: IUser[]=[];
+ users: IUser[]=[];
+
 userForm!: FormGroup;
-constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private activatedRoute:ActivatedRoute,private dataService: DataService){
+constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private activatedRoute:ActivatedRoute,private dataService: DataService,private db:AngularFireDatabase){
   let uid=localStorage.getItem('users');
+   
   this.userForm = this.fb.group({
     package_id:this.generateGUID(),
     order_id:this.generateorderID(),
@@ -34,13 +37,21 @@ constructor(private fb: FormBuilder,private userServices: UserService,private ro
     receiver_address: new FormControl('',),
     pincode_receiver: new FormControl('',),
     receiver_email: new FormControl('',),
-    user_id:uid,
+    user_uid:uid,
     status:'created',
+    trackdetails:{
+      booked:true,
+      Pickup:false,
+      InTransit:false,
+      Outfordelivery:false,
+      Delivered:false
+    },
   });
 }
- 
+
 ngOnInit(): void {
   throw new Error('Method not implemented.');
+ 
 }
 onSubmit(){
   //if(this.userForm.valid){
@@ -68,12 +79,12 @@ generateorderID():string {
   return dataToSend;
 }
 logout(){
-  const auth=getAuth();
+  /*const auth=getAuth();
   signOut(auth).then(()=>{
     this.router.navigateByUrl('/home');
   }).catch((error)=>{
       console.log('Error occured');
-  });
+  });*/
 }
 
 }
