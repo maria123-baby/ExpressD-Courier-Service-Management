@@ -25,6 +25,7 @@ export class DashboardComponent {
   details: IUser[]=[];
   totalExpenses=0;
 selectedValue: string='';
+selectedItem: string|null=null;
 
   constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){
     
@@ -35,7 +36,12 @@ selectedValue: string='';
   updateUserdata(key:string,selectedvalue:string):void{
     const field='status';
     const ItemRef = this.db.list('userdetails');
-  
+    /*if(this.selectedItem===itemid){
+      this.selectedItem=null;
+    }
+    else{
+      this.selectedItem=itemid;
+    }*/
     const currentUser=firebase.auth().currentUser;
     if(currentUser){
       const uid=currentUser.uid;

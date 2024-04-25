@@ -8,7 +8,6 @@ import { DataService } from '../data.service';
 import { TrackComponent } from '../track/track.component';
 import { getAuth } from '@angular/fire/auth';
 import { signOut } from 'firebase/auth';
-import { TrackingComponent } from '../tracking/tracking.component';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 @Component({
   selector: 'app-userdetails',

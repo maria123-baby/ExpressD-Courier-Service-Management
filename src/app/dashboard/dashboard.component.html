@@ -21,10 +21,11 @@
         </div>
         <div class="column" style="display: flex; align-items: center; justify-content: center;">
             
-            <div class="dropdown dropdown--scrollable ">
+            <div class="dropdown dropdown--scrollable " >
                 <button (click)="updateUserdata(detail.key!,this.selectedValue)">
+                    
                 <select [(ngModel)]="selectedValue" style="background-color:#1e606e;color:white" >
-        
+                
                   <div style="color:white;">{{selectedValue}}</div>
                
                 <option value="Booked">Booked</option>
@@ -34,13 +35,14 @@
                 <option value="Delivered">Delivered</option>
           
             </select>
+        
             </button>
         
               </div>
             <button class="btn btn-sm btn-danger" (click)="removeExpense(detail.key!)">Remove</button>
         </div>
-    </div> 
-}  
+        </div>
+    }
 </div>
 
     
