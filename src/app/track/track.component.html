@@ -2,46 +2,28 @@
     <h2>TRACK ORDER</h2>
     <input type="text" id="orderNum" class="track-id-input" placeholder="Enter Order Number" #orderNum>
     <button id="track-btn" class="track-now-button" (click)="trackOrder(orderNum.value)">Track Now</button>
-    <div>
+    <div class="step" *ngIf="isOrderTrackingStarted" style="pointer-events: none;">
         
-        <mat-horizontal-stepper labelPosition="bottom" linear>
-            <mat-step label="Booked" completed="{{steps[1].completed}}">
-                <ng-template matStepIcon>
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-                <p>Booked your delivery</p>
-            </mat-step>
-            <mat-step label="Pickup" completed="{{steps[2].completed}}">
-                <ng-template matStepIcon>
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-                <p>Pickup</p>
-            </mat-step>
-            <mat-step label="In Transit" completed="{{steps[3].completed}}">
-                <ng-template matStepIcon>
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-                <p>In Transit</p>
-            </mat-step>
-            <mat-step label="Reached Destination" completed="{{steps[4].completed}}">
-                <ng-template matStepIcon>
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-                <p>Reached Destination</p>
-            </mat-step>
-            <mat-step label="Out for Delivery" completed="{{steps[5].completed}}">
-                <ng-template matStepIcon>
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-                <p>Out for Delivery</p>
-            </mat-step>
-            <mat-step label="Delivered" completed="false">
-                <ng-template matStepIcon>
-                    <mat-icon>done</mat-icon>
-                </ng-template>
-                <p>Delivered</p>
-            </mat-step>
-        </mat-horizontal-stepper>
+            <mat-horizontal-stepper labelPosition="bottom" >
+                @for(step of steps; track $index){
+                <mat-step label={{step.label}} completed={{step.completed}}>
+                    @if($index===1){
+                    <ng-template matStepperIcon="number" >
+                        <mat-icon >done</mat-icon>
+                    
+                    </ng-template>
+                }
+                @else
+                {
+                    <ng-template matStepperIcon="edit" >
+                        <mat-icon >done</mat-icon>
+                    </ng-template> 
+                }
+                    <p>{{ step.label }}</p>
+                </mat-step>
+            }
+            </mat-horizontal-stepper>
+        
         <!-- Your content here -->
     
     </div>

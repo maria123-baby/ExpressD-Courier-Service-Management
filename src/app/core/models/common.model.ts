@@ -11,7 +11,12 @@ export interface IUser{
     receiver_address: string;
     pincode_receiver: string;
     receiver_email:string;
-    trackdetails:Array<{order_num:number,booked:boolean,picked:boolean,destined:boolean,delivered:boolean}>;
+    trackdetails:Array<{ Booked:boolean,
+      Pickup:boolean,
+      In_Transit:boolean,
+      Reached_Destination:boolean,
+      Out_for_Delivery:boolean,
+      Delivered:boolean}>;
 }
 export interface UserData {
     key?: string;

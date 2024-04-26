@@ -24,40 +24,39 @@ export class DashboardComponent {
   
   details: IUser[]=[];
   totalExpenses=0;
-selectedValue: string='';
+  selectedValues: string[] = [];
 selectedItem: string|null=null;
-
   constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){
     
     
    
   }
- 
-  updateUserdata(key:string,selectedvalue:string):void{
-    const field='status';
-    const ItemRef = this.db.list('userdetails');
-    /*if(this.selectedItem===itemid){
-      this.selectedItem=null;
-    }
-    else{
-      this.selectedItem=itemid;
-    }*/
+  editExpense(key:string){
+    console.log(key);
+    //this.router.navigate(['/expense-form/' + key]);
+   
+  }
+  onDropdownChange(event: Event,key:string,selectedValue:string):void {
+    // Get the selected value
+    const selectedvalue = (event.target as HTMLSelectElement).value;
+    
+    // Perform actions based on the selected value
+    console.log('Selected value:', selectedValue,key);
+    
     const currentUser=firebase.auth().currentUser;
     if(currentUser){
       const uid=currentUser.uid;
       console.log(uid);
       
-     this.updatestatusfield(key,selectedvalue);
-    
+     this.updatestatusfield(key,selectedValue);
     }
-    
-    
-    
-  } 
-  updatestatusfield(key:string,selectedValue:string):Promise<void>{
   
-    console.log(selectedValue);
+    // You can call other methods or update component properties here
+  }
+  
 
+  updatestatusfield(key:string,selectedValue:string):Promise<void>{
+    
     return this.db.object(`userdetails/${key}/trackdetails`).update({ [selectedValue]: true });
   }
   ngOnInit(): void {

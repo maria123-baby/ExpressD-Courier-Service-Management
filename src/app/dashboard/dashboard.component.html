@@ -19,24 +19,16 @@
             <p>Email: {{detail.receiver_email}}</p>
             <p>Address: {{detail.receiver_address}}</p>
         </div>
-        <div class="column" style="display: flex; align-items: center; justify-content: center;">
-            
-            <div class="dropdown dropdown--scrollable " >
-                <button (click)="updateUserdata(detail.key!,this.selectedValue)">
-                    
-                <select [(ngModel)]="selectedValue" style="background-color:#1e606e;color:white" >
-                
-                  <div style="color:white;">{{selectedValue}}</div>
-               
+        <div class="column" style="display: flex; align-items: center; justify-content: center;">  
+            <div class="dropdown dropdown--scrollable "   >           
+                <select [(ngModel)]="selectedValues[$index]" style="background-color:#1e606e;color:white" (change)="onDropdownChange($event,detail.key!,this.selectedValues[$index])">     
                 <option value="Booked">Booked</option>
                 <option value="Pickup">Pickup</option>
-                <option value="InTransit">In Transit</option>
-                <option value="Outfordelivery">Out for Delivery</option>
+                <option value="In_Transit">In Transit</option>
+                <option value="Reached_Destination">Reached Destination</option>
+                <option value="Out_for_Delivery">Out for Delivery</option>
                 <option value="Delivered">Delivered</option>
-          
             </select>
-        
-            </button>
         
               </div>
             <button class="btn btn-sm btn-danger" (click)="removeExpense(detail.key!)">Remove</button>
@@ -44,6 +36,3 @@
         </div>
     }
 </div>
-
-    
- 

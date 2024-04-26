@@ -29,7 +29,6 @@ button{
     margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
-    height:450px;
 }
 
 .column {
@@ -49,7 +48,10 @@ button{
     margin: 10px 0;
     color: #555; /* Greyish text for content */
 }
-
+select{
+    height:30px;
+    border-radius: 5px;
+}
 /* Style buttons */
 .row button {
     background-color: #2c778a; /* Blueish green button */
@@ -57,17 +59,16 @@ button{
     border: none;
     padding: 8px 16px;
     border-radius: 5px;
+
     cursor: pointer;
-    transition: background-color 0.3s ease;
+
 }
 
 /* Button hover effect */
 .row button:hover {
     background-color: #1e606e; /* Darker blueish green on hover */
 }
-select{
-    color:white;
-}
+
 /* Attractive heading styles */
 h1 {
     font-size: 36px; /* Larger font size */

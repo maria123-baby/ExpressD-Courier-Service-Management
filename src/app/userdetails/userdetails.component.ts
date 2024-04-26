@@ -9,6 +9,8 @@ import { TrackComponent } from '../track/track.component';
 import { getAuth } from '@angular/fire/auth';
 import { signOut } from 'firebase/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import firebase from 'firebase/compat';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 @Component({
   selector: 'app-userdetails',
   standalone: true,
@@ -19,14 +21,18 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 export class UserdetailsComponent implements OnInit{
   
  users: IUser[]=[];
-
+ orderId: string | undefined;
+ showField: boolean = false;
 userForm!: FormGroup;
-constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private activatedRoute:ActivatedRoute,private dataService: DataService,private db:AngularFireDatabase){
+currentUserUid: string | null = null;
+dataToSend: any;
+
+constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private activatedRoute:ActivatedRoute,private dataService: DataService,private db:AngularFireDatabase,private afAuth: AngularFireAuth){
   let uid=localStorage.getItem('users');
-   
+  this.orderId = this.generateorderID();
   this.userForm = this.fb.group({
     package_id:this.generateGUID(),
-    order_id:this.generateorderID(),
+    order_id:this.orderId,
     sender_name: new FormControl('',),
     sender_address: new FormControl('',),
     pincode_sender: new FormControl('',),
@@ -39,26 +45,44 @@ constructor(private fb: FormBuilder,private userServices: UserService,private ro
     user_uid:uid,
     status:'created',
     trackdetails:{
-      booked:true,
+      Booked:false,
       Pickup:false,
-      InTransit:false,
-      Outfordelivery:false,
+      In_Transit:false,
+      Reached_Destination:false,
+      Out_for_Delivery:false,
       Delivered:false
     },
   });
 }
-
+openModel(){
+  const modelDiv=document.getElementById('myModal');
+  if(modelDiv!=null){
+   modelDiv.style.display='block';
+  }
+}
+CloseModel(){
+ const modelDiv=document.getElementById('myModal');
+ if(modelDiv!=null){
+  modelDiv.style.display='none';
+ }
+ this.router.navigate(['userdetails'])
+}
 ngOnInit(): void {
-  throw new Error('Method not implemented.');
+ // throw new Error('Method not implemented.');
  
 }
+toggleField() {
+  this.showField = !this.showField;
+}
+
 onSubmit(){
   //if(this.userForm.valid){
-    console.log(4)
+    //console.log(4)
       this.userServices.addDetail(this.userForm.value);
-      this.router.navigate(['/orderdetails']);
       
-    
+
+      //this.router.navigate(['/orderdetails']);
+      
     //this.router.navigate(['/admin']);
  // }else{
     //console.log(2)
@@ -74,7 +98,7 @@ generateorderID():string {
   const timestamp = new Date().getTime();
   const randnum=Math.floor(Math.random()*10);
   const dataToSend= `OI${timestamp}${randnum}`;
-  this.dataService.setData(dataToSend);
+
   return dataToSend;
 }
 logout(){
