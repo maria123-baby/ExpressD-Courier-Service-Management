@@ -14,9 +14,9 @@ body {
 	height: 430px;
 	background: white;
 	overflow: hidden;
-	/*background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/cover;*/
-	border-radius: 5px;
-	/*box-shadow: 5px 20px 30px #000;*/
+	/*background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/cover;
+	*/border-radius: 5px;
+	box-shadow: 5px 20px 30px #000;
 }
 
 
@@ -47,7 +47,7 @@ label {
 input {
 	width: 80%;
 	height: 30px;
-	background: rgb(225, 220, 220);
+	background:rgb(225, 220, 220);
 	justify-content: center;
 	display: flex;
 	margin: 20px auto;

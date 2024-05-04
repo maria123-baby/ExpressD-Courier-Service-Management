@@ -1,11 +1,49 @@
-<header>
-  <a href="#" class="brand">EVENTCO</a>
-  <div class="navigation">
-    <div class="navigation-items">
-      <a class="link" routerLink="">Home</a>
-      <a class="link" routerLink="/eventpage">Event</a>
-      <a class="link" routerLink="/login">Login</a>
-      <a href="#">Contact</a>
-    </div>
+<div class="sidebar">
+  <!-- Sidebar Content -->
+  <div class="d-flex flex-column align-items-start px-3 pt-2">
+      <a href="/" class="d-flex align-items-center pb-3 mb-md-0 text-white text-decoration-none sidebar-link menu">
+          <i class="fas fa-bars"></i>
+          <span class="ms-2">Menu</span>
+      </a>
+      <ul class="nav nav-pills flex-column mb-auto" id="menu">
+          <li class="nav-item">
+              <a routerLink="/" class="nav-link sidebar-link">
+                  <i class="fas fa-home"></i>
+                  <span>Home</span>
+              </a>
+          </li>
+          <li>
+            <div *ngIf="currentUserUid===userID">
+              <a routerLink="/dashboard" class="nav-link sidebar-link">
+                  <i class="fas fa-tachometer-alt"></i>
+                  <span>Dashboard</span>
+              </a>
+              </div>
+          </li>
+          
+              <li> <a routerLink="/orderdetails"data-toggle="collapse"class="nav-link sidebar-link">
+                <span>Booking Details</span
+                    ></a>
+                  </li>
+             <li>
+              <a routerLink="/userdetails" class="nav-link sidebar-link">
+                  <i class="fas fa-plus"></i>
+                  <span>Add Courier</span>
+              </a>
+          </li>
+     
+          <li>
+              <a routerLink="/track" class="nav-link sidebar-link">
+                  <i class="fas fa-search-location"></i>
+                  <span>Track Courier</span>
+              </a>
+          </li>
+          <li>
+              <a href="#" class="nav-link sidebar-link" (click)="onLogout()">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Logout</span>
+              </a>
+          </li>
+      </ul>
   </div>
-</header>
+</div>

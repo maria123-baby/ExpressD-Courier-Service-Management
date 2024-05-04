@@ -11,6 +11,7 @@ export interface IUser{
     receiver_address: string;
     pincode_receiver: string;
     receiver_email:string;
+    payment:boolean;
     trackdetails:Array<{ Booked:boolean,
       Pickup:boolean,
       In_Transit:boolean,

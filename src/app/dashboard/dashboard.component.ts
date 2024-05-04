@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
@@ -11,25 +11,24 @@ import { firebaseConfig } from '../core/constants/constants';
 import firebase from 'firebase/compat/app';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormsModule} from '@angular/forms';
+import { NavbarComponent } from "../navbar/navbar.component";
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports:[RouterModule,RouterLink,FormsModule,CommonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+    selector: 'app-dashboard',
+    standalone: true,
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.css',
+    imports: [RouterModule, RouterLink, FormsModule, CommonModule, NavbarComponent]
 })
 
 
-export class DashboardComponent {
-  
+export class DashboardComponent implements OnInit{
+
   details: IUser[]=[];
   totalExpenses=0;
   selectedValues: string[] = [];
 selectedItem: string|null=null;
-  constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){
-    
-    
-   
+
+  constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){ 
   }
   editExpense(key:string){
     console.log(key);
@@ -53,15 +52,17 @@ selectedItem: string|null=null;
   
     // You can call other methods or update component properties here
   }
-  
-
+ 
+ 
   updatestatusfield(key:string,selectedValue:string):Promise<void>{
-    
     return this.db.object(`userdetails/${key}/trackdetails`).update({ [selectedValue]: true });
+    
+    
   }
   ngOnInit(): void {
     this. getAllDetails();
   }
+ 
   getAllDetails(){
     this.userService. getAllDetails().snapshotChanges().subscribe({
       next: (data)=>{
@@ -81,7 +82,9 @@ selectedItem: string|null=null;
             receiver_address: detail.receiver_address,
             pincode_receiver: detail.pincode_receiver,
             receiver_email: detail.receiver_email,
+            payment:detail.payment,
             trackdetails:detail.trackdetails,
+            
           })
         }) 
       },

@@ -4,7 +4,7 @@
 .track-order-box {
     width: 80%;
     max-width: 800px;
-    margin: 50px auto;
+    margin-top:50px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -12,7 +12,12 @@
     text-align: center;
     background-color: #f9f9f9; /* Changed background color */
 }
-
+.track-order{
+    display:flex;
+    margin-left:230px;
+    
+    justify-content: center;
+}
 /* Heading */
 .track-order-box h2 {
     margin-top: 0;
@@ -92,10 +97,14 @@
     color: #fff;
 }
 
- .mat-step-header .mat-step-icon-selected ::after{
-     background-color: grey;
+.completed-icon {
+    background-color: #3f51b5 !important;
 }
-.mat-step-header .mat-step-label ::after{
+
+.incomplete-icon {
+    background-color: grey !important;
+}
+.mat-step-header .mat-step-label{
   background-color: grey !important;
   font-size:15px !important;
 }

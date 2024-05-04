@@ -1,13 +1,10 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { UserService } from '../core/services/user.service';
-import { IUser } from '../core/models/common.model';
-import { Subscription } from 'rxjs';
-import { DataService } from '../data.service';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { NavbarComponent } from "../navbar/navbar.component";
 interface Order {
   orderId: string;
   senderName: string;
@@ -24,11 +21,11 @@ interface Order {
 }
 
 @Component({
-  selector: 'app-orderdetails',
-  standalone: true,
-  imports: [RouterModule,CommonModule],
-  templateUrl: './orderdetails.component.html',
-  styleUrl: './orderdetails.component.css'
+    selector: 'app-orderdetails',
+    standalone: true,
+    templateUrl: './orderdetails.component.html',
+    styleUrl: './orderdetails.component.css',
+    imports: [RouterModule, CommonModule, NavbarComponent]
 })
 export class OrderdetailsComponent implements OnInit{
   currentUserUid: string | null = null;

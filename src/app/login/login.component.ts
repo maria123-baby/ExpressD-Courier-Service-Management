@@ -23,7 +23,7 @@ ngOnInit(): void {
 
   this.form1=this.fb.nonNullable.group({
     email:['',Validators.required],
-    username:['',Validators.required],
+    
     password:['',Validators.required],
   });
   this.form2=this.fb.nonNullable.group({
@@ -32,21 +32,12 @@ ngOnInit(): void {
   });
 }
 
-  onSignup(){
-     const {email,username,password}= this.form1.value;
-     this.auth.createUserWithEmailAndPassword(email,password).then(response=>{
-       alert('Registered Successfully');
-         this.router.navigateByUrl('/login');
-     })
-      .catch(error=>{
-
-      })  ;
-  }
+ 
   onlogin(){
     const { email, password } = this.form2.value;
     this.auth.signInWithEmailAndPassword(email, password)
         .then(response => {
-            console.log('hello', response.user?.uid);
+            //console.log('hello', response.user?.uid);
             let user = response.user?.uid;
             if (user) {
                 localStorage.setItem('users', user);
@@ -58,4 +49,5 @@ ngOnInit(): void {
      .catch(error=>{
      })  ;
   }
+  
 }

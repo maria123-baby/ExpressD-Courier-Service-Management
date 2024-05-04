@@ -1,52 +1,32 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Times New Roman', Times, serif;
+.sidebar {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    height: 100%; /* Ensure full height */
+    width: 230px; /* Set a fixed width */
+    color: white;
+    position:fixed;
+    
 }
-header{
-    z-index: 999;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 200px;
-    transition: 0.5s ease;
-}
-header .brand{
-    color: rgb(17, 17, 19);
-    font-size: 70px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    margin-left: 400px;
-}
-header .navigation{
-    position: relative;
 
-}
-header .navigation .navigation-items a{
+.sidebar .sidebar-link {
     position: relative;
-    color: black;
-    font-size: 20px;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    font-size: 18px;
     text-decoration: none;
-    margin-left: 30px;
-    transition: 0.3s ease;
+    color: white;
+    transition: all 0.5s;
 }
-header .navigation .navigation-items a:before{
-    content: '';
-    position: absolute;
-    background: black;
-    width: 0;
-    height: 3px;
-    bottom: 0;
-    left: 0;
-    transition: 0.3s ease;
+
+.sidebar .sidebar-link.menu {
+    pointer-events: none; /* Prevent hover effects on 'Menu' button */
 }
-header .navigation .navigation-items a:hover:before{
-    width: 100%;
+
+.sidebar .sidebar-link .fas {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.sidebar .sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* Hover effect for all except 'Menu' */
 }

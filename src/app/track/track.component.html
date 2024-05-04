@@ -1,14 +1,35 @@
-<div class="track-order-box">
+<app-navbar></app-navbar>
+<div class="track-order">
+   <div class="track-order-box">
     <h2>TRACK ORDER</h2>
     <input type="text" id="orderNum" class="track-id-input" placeholder="Enter Order Number" #orderNum>
     <button id="track-btn" class="track-now-button" (click)="trackOrder(orderNum.value)">Track Now</button>
-    <div class="step" *ngIf="isOrderTrackingStarted" style="pointer-events: none;">
+    
+    <div class="step" *ngIf="isOrderTrackingStarted && isValidOrderId" style="pointer-events: none;">
         
             <mat-horizontal-stepper labelPosition="bottom" >
                 @for(step of steps; track $index){
                 <mat-step label={{step.label}} completed={{step.completed}}>
-                    @if($index===1){
+                   <div>Sender : {{sender}}</div>
+                   <div>Receiver : {{receiver}}</div>
+                    @if($index===0){
+                          <div *ngIf="!step.completed">
+                            <style >
+                                ::ng-deep .mat-step-header .mat-step-icon-selected::after{
+                                    background-color:grey  ;
+                                }
+                            </style>
+                         </div>
+                         <div *ngIf="step.completed">Hello
+                            <style >
+                                ::ng-deep .mat-step-header .mat-step-icon-selected::after{
+                                    background-color:blue  ;
+                                }
+                            </style>
+                         </div>
+                        
                     <ng-template matStepperIcon="number" >
+                        
                         <mat-icon >done</mat-icon>
                     
                     </ng-template>
@@ -19,12 +40,14 @@
                         <mat-icon >done</mat-icon>
                     </ng-template> 
                 }
-                    <p>{{ step.label }}</p>
+                
                 </mat-step>
             }
             </mat-horizontal-stepper>
+            </div>
+            
+            <div *ngIf="showMessage">
+            <div class="text-danger" *ngIf="!isValidOrderId">Invalid Order Id</div></div>
         
-        <!-- Your content here -->
-    
     </div>
 </div>

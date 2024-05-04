@@ -1,5 +1,9 @@
+<app-navbar></app-navbar>
+<div class="container1">
 <h1>Dashboard</h1>
 <div class="container" id="container">
+    
+    
     <!-- Dummy data -->
     @for(detail of details; track $index){
     <div class="row" >
@@ -19,10 +23,14 @@
             <p>Email: {{detail.receiver_email}}</p>
             <p>Address: {{detail.receiver_address}}</p>
         </div>
+        <div class="column">
+            <h2>Payment Status</h2>
+           
+            <p>{{detail.payment}}</p>
+        </div>
         <div class="column" style="display: flex; align-items: center; justify-content: center;">  
             <div class="dropdown dropdown--scrollable "   >           
                 <select [(ngModel)]="selectedValues[$index]" style="background-color:#1e606e;color:white" (change)="onDropdownChange($event,detail.key!,this.selectedValues[$index])">     
-                <option value="Booked">Booked</option>
                 <option value="Pickup">Pickup</option>
                 <option value="In_Transit">In Transit</option>
                 <option value="Reached_Destination">Reached Destination</option>
@@ -35,4 +43,5 @@
         </div>
         </div>
     }
+</div>
 </div>

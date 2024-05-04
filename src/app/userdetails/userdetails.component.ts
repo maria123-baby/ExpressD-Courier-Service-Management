@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IUser } from '../core/models/common.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../core/services/user.service';
@@ -11,12 +11,14 @@ import { signOut } from 'firebase/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import firebase from 'firebase/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { NavbarComponent } from "../navbar/navbar.component";
+import { set } from 'firebase/database';
 @Component({
-  selector: 'app-userdetails',
-  standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,RouterModule],
-  templateUrl: './userdetails.component.html',
-  styleUrl: './userdetails.component.css'
+    selector: 'app-userdetails',
+    standalone: true,
+    templateUrl: './userdetails.component.html',
+    styleUrl: './userdetails.component.css',
+    imports: [CommonModule, ReactiveFormsModule, RouterModule, NavbarComponent]
 })
 export class UserdetailsComponent implements OnInit{
   
@@ -25,8 +27,9 @@ export class UserdetailsComponent implements OnInit{
  showField: boolean = false;
 userForm!: FormGroup;
 currentUserUid: string | null = null;
+userID:string|null="X7WBCBXa1iNT834yh7ON5ut9g972";
 dataToSend: any;
-
+auth=inject(AngularFireAuth);
 constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private activatedRoute:ActivatedRoute,private dataService: DataService,private db:AngularFireDatabase,private afAuth: AngularFireAuth){
   let uid=localStorage.getItem('users');
   this.orderId = this.generateorderID();
@@ -43,12 +46,12 @@ constructor(private fb: FormBuilder,private userServices: UserService,private ro
     pincode_receiver: new FormControl('',),
     receiver_email: new FormControl('',),
     user_uid:uid,
-    status:'created',
+    payment:false,
     trackdetails:{
       Booked:false,
       Pickup:false,
-      In_Transit:false,
       Reached_Destination:false,
+      In_Transit:false,
       Out_for_Delivery:false,
       Delivered:false
     },
@@ -59,20 +62,33 @@ openModel(){
   if(modelDiv!=null){
    modelDiv.style.display='block';
   }
+
 }
 CloseModel(){
  const modelDiv=document.getElementById('myModal');
  if(modelDiv!=null){
+  
   modelDiv.style.display='none';
- }
- this.router.navigate(['userdetails'])
+  }
+ 
+  this.router.navigate(['/payment']);
 }
 ngOnInit(): void {
  // throw new Error('Method not implemented.');
- 
+ this.afAuth.authState.subscribe((user:any) => {
+  if (user) {
+    // User is logged in, retrieve UID
+    this.currentUserUid = user.uid;
+  } else {
+    // User is not logged in, UID is null
+    this.currentUserUid = null;
+  }
+});
 }
 toggleField() {
-  this.showField = !this.showField;
+  
+    this.showField = !this.showField;
+  
 }
 
 onSubmit(){
@@ -101,13 +117,6 @@ generateorderID():string {
 
   return dataToSend;
 }
-logout(){
-  /*const auth=getAuth();
-  signOut(auth).then(()=>{
-    this.router.navigateByUrl('/home');
-  }).catch((error)=>{
-      console.log('Error occured');
-  });*/
-}
+
 
 }
