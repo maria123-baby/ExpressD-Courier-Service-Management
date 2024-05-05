@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: "your_api_key",
+  apiKey: " AIzaSyBOFkqgnDaH29KofCHjup3iWYVJRIzzsZQ ",
 
   authDomain: "courier-service-manageme-891b4.firebaseapp.com",
 

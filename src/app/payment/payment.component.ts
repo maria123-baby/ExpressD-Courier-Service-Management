@@ -1,118 +1,107 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CheckoutService } from '../core/services/checkout.service';
+
 interface Order {
   orderId: string;
   senderName: string;
   receiverName: string;
-  
- 
-  // Add other properties as needed
+  paymentStatus?: boolean; // Track payment status
 }
+
 @Component({
   selector: 'app-payment',
-  standalone: true, // Ensure standalone is supported in your Angular version
-  imports: [HttpClientModule,RouterModule,CommonModule],
+  standalone: true,
+  imports: [HttpClientModule, CommonModule], 
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css'] // Corrected styleUrls (plural)
+  styleUrls: ['./payment.component.css'],
 })
-
 export class PaymentComponent implements OnInit {
-  paymentHandler: any; // Initialized variable
+  orders: Order[] = []; // List of orders
+  paymentHandler: any; 
   currentUserUid: string | null = null;
-  orderId:string='';
-  orders: Order[] = [];
-  constructor(private checkout: CheckoutService,private afAuth: AngularFireAuth,private db:AngularFireDatabase)
-  {
 
-  }
+  constructor(
+    private checkout: CheckoutService,
+    private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase
+  ) {}
+
   ngOnInit() {
-    this.invokeStripe(); // Proper function call in `ngOnInit`
-    this.afAuth.authState.subscribe((user:any) => {
-      if (user) {
-        // User is logged in, retrieve UID
-        this.currentUserUid = user.uid;
-      } else {
-        // User is not logged in, UID is null
-        this.currentUserUid = null;
-      }
-    //  console.log(this.currentUserUid);
-      this.db.list('userdetails').snapshotChanges().subscribe(snaps => {
-        this.orders = [];
-        snaps.forEach(snap => {
-          const key = snap.key;
-          const data: any = snap.payload.val();
-          if (data.user_uid === this.currentUserUid) {
-           // console.log(key);
-            const order: Order = {
-              orderId: data.order_id,
-              senderName: data.sender_name,
-              receiverName: data.receiver_name,
-              
-              
-              // Add other properties as needed
-            };
-            this.orders.push(order);
-            
-          }
-            // Order found, update step completion status
-          
-  
-            })
-            //console.log(data.order_id);
-            
-      
-            });
-            
-          
-        });
+    this.invokeStripe(); 
+    this.loadOrders();  // Load orders from Firebase
   }
 
-  makePayment(amount: number,ordernum:string) {
-    
-    
-    const paymentHandler = (window as any).StripeCheckout.configure({
-      key: 'pk_test_51P2vkoSAEiT15doWH3CqEmQ90JSv0gVIJAD4VYPRu70q4zSmM1rqR9bQkbxDtUvv0LrjSmCpGw684uG9q45AoOMD00ki5lysRn', // Ensure correct public key
-      locale: 'auto',
-      token: function (stripeToken: any){ // Use arrow function for correct `this`
-        console.log(stripeToken) ;
-        
+  loadOrders() {
+    this.afAuth.authState.subscribe((user: any) => {
+      if (user) {
+        this.currentUserUid = user.uid; 
+        this.db
+          .list('userdetails', (ref) => ref.orderByChild('user_uid').equalTo(this.currentUserUid))
+          .snapshotChanges()
+          .subscribe((snaps) => {
+            this.orders = snaps.map((snap) => {
+              const data: any = snap.payload.val(); 
+              const orderId = data?.order_id ?? '';
+              const senderName = data?.sender_name ?? '';
+              const receiverName = data?.receiver_name ?? '';
+              const paymentStatus= data?.payment ?? false;
+              return {
+                orderId,
+                senderName,
+                receiverName,
+                paymentStatus, 
+              };
+            });
+          });
+      }
+    });
+  }
 
-        paymentStripe(stripeToken)
-        {}
+  makePayment(order: Order) {
+    order.paymentStatus = false; // Mark as paid
+    const paymentHandler = (window as any).StripeCheckout.configure({
+      key: 'pk_test_51P2vkoSAEiT15doWH3CqEmQ90JSv0gVIJAD4VYPRu70q4zSmM1rqR9bQkbxDtUvv0LrjSmCpGw684uG9q45AoOMD00ki5lysRn', 
+      locale: 'auto',
+      token: (stripeToken: any) => {
+        this.db.list('userdetails').snapshotChanges().subscribe(snaps => {
+          snaps.forEach(snap => {
+            const key = snap.key;
+            const data: any = snap.payload.val();
+            
+           if (data.user_uid === this.currentUserUid && data.order_id===order.orderId) {
+                console.log('id',order.orderId);
+                 console.log('key',key);
+                 console.log(data.payment);
+                 this.db.object(`userdetails/${key}`).update({ ['payment']: true });
+                 
+                 order.paymentStatus=data.payment;
+              }
+          })
+        })
+        this.checkout.makePayment(stripeToken).subscribe((data) => {
+          console.log('Payment Successful:', data);
+          this.removeOrder(order); // Optionally remove the order after payment
+        });
       },
     });
-    const paymentStripe = (stripeToken: any)=>{
-      this.db.list('userdetails').snapshotChanges().subscribe(snaps => {
-        snaps.forEach(snap => {
-          const key = snap.key;
-          const data: any = snap.payload.val();
-          
-          if (data.order_id===ordernum ) {
-              console.log('id',data.order_id);
-              console.log('key',key);
-               this.db.object(`userdetails/${key}`).update({ ['payment']: true });
-               
-            }
-  })
-  })
 
-      this.checkout.makePayment(stripeToken).subscribe((data : any)=>{
-        console.log('hai',data);
-        console.log('hello');
-      })
-    }
     paymentHandler.open({
       name: 'ExpressD',
       description: 'Parcel Delivery',
-      amount: amount * 100, // Stripe expects amount in cents
+      amount: 1000, // Stripe requires the amount in cents
     });
   }
 
+  removeOrder(order: Order) {
+    this.db.list('userdetails').remove(order.orderId).then(() => {
+      this.orders = this.orders.filter((o) => o.orderId !== order.orderId);
+      console.log(`Order ${order.orderId} removed successfully.`);
+    });
+  }
 
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
@@ -122,7 +111,7 @@ export class PaymentComponent implements OnInit {
       script.src = 'https://checkout.stripe.com/checkout.js';
       script.onload = () => {
         this.paymentHandler = (window as any).StripeCheckout.configure({
-          key: 'pk_test_51P2vkoSAEiT15doWH3CqEmQ90JSv0gVIJAD4VYPRu70q4zSmM1rqR9bQkbxDtUvv0LrjSmCpGw684uG9q45AoOMD00ki5lysRn', // Ensure this is your Stripe key
+          key: 'pk_test_51P2vkoSAEiT15doWH3CqEmQ90JSv0gVIJAD4VYPRu70q4zSmM1rqR9bQkbxDtUvv0LrjSmCpGw684uG9q45AoOMD00ki5lysRn', 
           locale: 'auto',
           token: (stripeToken: any) => {
             console.log('Stripe Token:', stripeToken);

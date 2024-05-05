@@ -28,6 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "firebase": "^10.10.0",
     "rxjs": "~7.8.0",
+    "stripe": "^15.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
