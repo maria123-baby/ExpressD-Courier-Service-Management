@@ -15,7 +15,7 @@ interface Order {
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [HttpClientModule, CommonModule], 
+  imports: [HttpClientModule], 
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
 })

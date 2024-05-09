@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
-import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
-import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
+import { Router, RouterLink, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { IUser } from '../core/models/common.model';
 import { UserService } from '../core/services/user.service';
-import { firebaseConfig } from '../core/constants/constants';
 import firebase from 'firebase/compat/app';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormsModule} from '@angular/forms';

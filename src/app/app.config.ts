@@ -10,7 +10,7 @@ import { getFirestore, provideFirestore,FirestoreModule} from '@angular/fire/fir
 import { getDatabase, provideDatabase , DatabaseModule} from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import { getMessaging, provideMessaging } from '@angular/fire/messaging';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';

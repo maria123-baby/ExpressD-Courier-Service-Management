@@ -10,12 +10,25 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { TrackComponent } from './track/track.component';
 import { RegisterComponent } from './register/register.component';
 import { PaymentComponent } from './payment/payment.component';
+import { ServicesComponent } from './services/services.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet,HomeComponent,PaymentComponent,LoginComponent,ReactiveFormsModule,UserdetailsComponent,CommonModule,NavbarComponent,RegisterComponent,TrackComponent]
+    imports: [RouterOutlet,
+      HomeComponent,
+      AboutComponent,
+      PaymentComponent,
+      ServicesComponent,
+      LoginComponent,
+      ReactiveFormsModule,
+      UserdetailsComponent,
+      CommonModule,NavbarComponent,
+      RegisterComponent,TrackComponent,
+      ContactComponent]
 })
 
 export class AppComponent {

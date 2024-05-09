@@ -1,18 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { IUser } from '../core/models/common.model';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { UserService } from '../core/services/user.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../data.service';
-import { TrackComponent } from '../track/track.component';
-import { getAuth } from '@angular/fire/auth';
-import { signOut } from 'firebase/auth';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import firebase from 'firebase/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { set } from 'firebase/database';
 @Component({
     selector: 'app-userdetails',
     standalone: true,
@@ -29,8 +22,7 @@ userForm!: FormGroup;
 currentUserUid: string | null = null;
 userID:string|null="X7WBCBXa1iNT834yh7ON5ut9g972";
 dataToSend: any;
-auth=inject(AngularFireAuth);
-constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private activatedRoute:ActivatedRoute,private dataService: DataService,private db:AngularFireDatabase,private afAuth: AngularFireAuth){
+constructor(private fb: FormBuilder,private userServices: UserService,private router: Router,private afAuth: AngularFireAuth){
   let uid=localStorage.getItem('users');
   this.orderId = this.generateorderID();
   this.userForm = this.fb.group({
@@ -40,7 +32,6 @@ constructor(private fb: FormBuilder,private userServices: UserService,private ro
     sender_address: new FormControl('',),
     pincode_sender: new FormControl('',),
     sender_email: new FormControl('',),
-    sender_contact: new FormControl('',),
     receiver_name: new FormControl('',),
     receiver_address: new FormControl('',),
     pincode_receiver: new FormControl('',),

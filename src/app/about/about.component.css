@@ -1,0 +1,205 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/* Header Styles */
+.expressd-header {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Set header to span full width */
+}
+.expressd-header h1 {
+    font-size: 40px;
+    margin: 0;
+}
+.expressd-header h3 {
+    font-size: 18px;
+    margin: 5px 0 0;
+    font-style: italic;
+}
+/* About Section Styles */
+#resources {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+.intro-section {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.intro-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+.intro-section p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+}
+.intro-section hr {
+    border-color: #ddd;
+    margin-top: 30px;
+}
+/* Feature Section Styles */
+.feature-section {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 30px;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.feature-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+.feature-section h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+.feature-section p {
+    font-size: 16px;
+    color: #666;
+}
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #3498db;
+    background-color: transparent;
+    color: #3498db;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* Header Styles */
+.expressd-header {
+    text-align: center;
+    background-color: #3498db;
+    padding: 40px 20px;
+    margin-bottom: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+}
+
+.expressd-header h1 {
+    font-size: 50px;
+    margin: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.expressd-header h3 {
+    font-size: 20px;
+    margin: 10px 0 0;
+    font-weight: normal;
+}
+
+/* Feature Section Styles */
+.feature-paragraph {
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+}
+
+.feature-post {
+    background: #f9f9f9;
+    border: 1px solid #e1e1e1;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+    .feature-paragraph {
+        font-size: 18px;
+        line-height: 30px;
+    }
+}
+
+/* Navigation Styles */
+.navigation {
+    background-color: #3498db;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo img {
+    max-width: 150px;
+}
+
+.nav-link h5 {
+    margin: 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-link h5:hover {
+    color: #f39c12;
+}
+
+.navbar-toggler {
+    color: #fff;
+    border-color: #fff;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+/* Action Section Styles */
+.action-column1, .action-column2 {
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.action-heading {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.action-paragraph {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.action-button {
+    font-size: 20px;
+    border-radius: 8px;
+    background-color: #3498db;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #f39c12;
+}
