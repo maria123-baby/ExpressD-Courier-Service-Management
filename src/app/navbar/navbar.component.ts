@@ -12,9 +12,8 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class NavbarComponent implements OnInit{
   currentUserUid: string | null = null;
-  afAuth=inject(AngularFireAuth);
 userID:string|null="xWry0eAtQGXt7U3quQXUBWpIMf22";
-  constructor(private router:Router){
+  constructor(private router:Router,private afAuth:AngularFireAuth){
     
   }
   ngOnInit(): void {
@@ -38,7 +37,7 @@ onLogout(): void {
     this.router.navigateByUrl('/login');
   }).catch(error => {
     // Handle logout error
-    //console.error('Logout error:', error);
+    console.error('Logout error:', error);
   });
 }
 }

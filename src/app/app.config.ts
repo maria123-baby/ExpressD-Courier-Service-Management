@@ -1,24 +1,27 @@
 import { ApplicationConfig, NgModule, importProvidersFrom } from '@angular/core';
-import { Routes, provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
+import {ActivatedRoute, provideRouter } from '@angular/router';
 import {firebaseConfig } from '../app/core/constants/constants'
 import { routes } from './app.routes';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 
 import { AngularFireModule } from '@angular/fire/compat';
-import { getAuth, provideAuth,AuthModule} from '@angular/fire/auth';
-import { getFirestore, provideFirestore,FirestoreModule} from '@angular/fire/firestore';
-import { getDatabase, provideDatabase , DatabaseModule} from '@angular/fire/database';
+import { getAuth, provideAuth} from '@angular/fire/auth';
+import { getFirestore, provideFirestore} from '@angular/fire/firestore';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
-import { getFunctions, provideFunctions } from '@angular/fire/functions';
-import { getMessaging, provideMessaging } from '@angular/fire/messaging';
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import {  HttpClientModule, provideHttpClient } from '@angular/common/http';
+/*import { getFunctions, provideFunctions } from '@angular/fire/functions';
+import { getMessaging, provideMessaging } from '@angular/fire/messaging';*/
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import {  AngularFireAuthModule } from '@angular/fire/compat/auth';
+import {  AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UserService } from './core/services/user.service';
 
 NgModule({
-  imports:[]
+  imports:[HttpClientModule],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: firebaseConfig}
+],
 })
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,8 +34,8 @@ export const appConfig: ApplicationConfig = {
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
      provideDatabase(() => getDatabase()), 
-    provideFunctions(() => getFunctions()),
-     provideMessaging(() => getMessaging())
+  /*  provideFunctions(() => getFunctions()),
+     provideMessaging(() => getMessaging())*/
     ]), provideAnimationsAsync(),
   ],
 };

@@ -20,7 +20,6 @@ export class RegisterComponent {
   form1!:FormGroup;
 
  fb=inject(FormBuilder);
-  http=inject(HttpClient);
   router=inject(Router);
   auth=inject(AngularFireAuth);
 ngOnInit(): void {

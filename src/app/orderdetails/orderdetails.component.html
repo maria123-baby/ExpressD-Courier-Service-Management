@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container">
-  <div class="table-responsive">
+  <div class="table-responsive" *ngIf="dataFound">
       <table class="order-table">
           <thead>
               <tr>
@@ -9,8 +9,9 @@
                   <th>Receiver Info</th>
               </tr>
           </thead>
-          <tbody>
+          <tbody >
               <tr *ngFor="let order of orders">
+                  @if(order.payment){
                   <td>{{ order.orderId }}</td>
                   <td>
                       <div class="sub-column">
@@ -29,8 +30,11 @@
                           
                       </div>
                   </td>
+                }
               </tr>
+            
           </tbody>
       </table>
   </div>
+  <div class="nodata" *ngIf="!dataFound">No Details Found</div>
 </div>

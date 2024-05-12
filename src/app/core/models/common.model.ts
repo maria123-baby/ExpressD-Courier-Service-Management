@@ -6,11 +6,12 @@ export interface IUser{
     sender_address: string;
     pincode_sender:string;
     sender_email:string;
-    sender_contact: string;
+    sender_contactno: number;
     receiver_name: string;
     receiver_address: string;
     pincode_receiver: string;
     receiver_email:string;
+    receiver_contactno:number;
     payment:boolean;
     trackdetails:Array<{ Booked:boolean,
       Pickup:boolean,

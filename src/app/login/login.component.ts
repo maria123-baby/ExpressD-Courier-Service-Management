@@ -9,23 +9,18 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   selector: 'app-login',
   standalone: true,
   imports: [RouterOutlet,FormsModule,NgClass,RouterLink,ReactiveFormsModule],
+  providers:[AngularFireAuth],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit{
-  form1!:FormGroup;
   form2!:FormGroup;
  fb=inject(FormBuilder);
-  http=inject(HttpClient);
   router=inject(Router);
   auth=inject(AngularFireAuth);
 ngOnInit(): void {
 
-  this.form1=this.fb.nonNullable.group({
-    email:['',Validators.required],
-    
-    password:['',Validators.required],
-  });
+ 
   this.form2=this.fb.nonNullable.group({
     email:['',Validators.required],
     password:['',Validators.required],

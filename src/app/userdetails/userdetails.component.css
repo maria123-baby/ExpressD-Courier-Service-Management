@@ -1,7 +1,6 @@
-
-
+/* Default styles */
 .content {
-    margin-left:230px; /* Make the content fill the remaining space */
+    margin-left: 230px; /* Make the content fill the remaining space */
     padding: 20px;
     background-color: #fff;
     color: #333;
@@ -10,16 +9,29 @@
 .sender-container, .receiver-container {
     background: white;
     border-radius: 10px;
-    width:585px;
+    width: 585px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     padding: 20px;
     margin-bottom: 20px;
 }
 
+/* Responsive styles */
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0; /* Remove the left margin */
+        padding: 10px; /* Reduce padding */
+    }
+
+    .sender-container, .receiver-container {
+        width: calc(100% - 40px); /* Calculate width based on padding */
+        margin-left: auto; /* Center the containers */
+        margin-right: auto;
+    }
+}
+
 .form-group {
     margin-bottom: 20px;
 }
-
 .form-control {
     padding: 10px;
     border: 1px solid #ccc;

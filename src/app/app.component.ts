@@ -32,6 +32,5 @@ import { AboutComponent } from './about/about.component';
 })
 
 export class AppComponent {
-  title = 'Courier Service Management';
-   Auth=inject(AngularFireAuth);
+  title = 'event';
 }

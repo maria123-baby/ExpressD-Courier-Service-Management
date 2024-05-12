@@ -1,6 +1,4 @@
 
-
-
 :root {
   --accent-color: #ebfdff;
   --secondary-color: #3ac5ce;
@@ -19,44 +17,28 @@ body {
   background-color: #f2f2f2;
 }
 
-h1,
-.h1,
-h2,
-.h2,
-h3,
-.h3,
-h4,
-.h4,
-h5,
-.h5,
-h6,
-.h6 {
+h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6 {
   font-family: 'Playfair Display', serif;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Light text shadow */
   color: var(--body-text-color);
   letter-spacing: 0.04em;
 }
 
-h1,
-.h1 {
+h1,.h1 {
   font-size: 70px;
 }
 
-h3,
-.h3 {
+h3,.h3 {
   font-size: 24px;
 }
 
-h4,
-.h4 {
+h4,.h4 {
   font-size: 22px;
 }
 
-h5,
-.h5 {
+h5,.h5 {
   margin-bottom: 0px;
 }
-
 p {
   font-family: "Roboto";
   color: var(--light-text-color);
@@ -119,8 +101,7 @@ a:hover {
 
 @media only screen and (max-width: 768px) {
 
-  h1,
-  .h1 {
+  h1,.h1 {
     font-size: 50px;
   }
 }
@@ -156,37 +137,25 @@ transition: width 0.3s, left 0.3s; /* Smooth transition for underline */
 
 .nav-link:hover,
 .nav-link.active {
-color: #f8f9fa; /* Change text color on hover and when active */
+color: #f8f9fa; 
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
-background-color: #fff; /* White underline on hover and when active */
-width: auto; /* Automatically adjust width */
+background-color: #fff; 
+width: auto; 
 left: 0; /* Align to the left */
-right: 0; /* Align to the right */
-transition: left 0.3s, right 0.3s; /* Smooth transition */
+right: 0; 
+transition: left 0.3s, right 0.3s; 
 }
 
 .nav-link:focus::after {
-background-color: #fff; /* White underline when focused */
-width: auto; /* Automatically adjust width */
-left: 0; /* Align to the left */
-right: 0; /* Align to the right */
-transition: left 0.3s, right 0.3s; /* Smooth transition */
+background-color: #fff; 
+width: auto; 
+left: 0; 
+right: 0; 
+transition: left 0.3s, right 0.3s; 
 }
-
-.nav-link:active::after {
-background-color: #fff; /* White underline when clicked */
-width: auto; /* Automatically adjust width */
-left: 0; /* Align to the left */
-right: 0; /* Align to the right */
-transition: left 0.3s, right 0.3s; /* Smooth transition */
-}
-.navbar {
-margin-bottom: 0;
-}
-
 
 /* Footer Section */
 #footer {
@@ -209,25 +178,16 @@ margin-bottom: 0;
   font-size: 20px;
   margin-top: 20px;
 }
-
- 
 /* dropdown  */
 .dropdown-toggle::after {
   border: none;
   margin-left: 0em;
   vertical-align: 0em;
 }
-
-.dropdown-item.active,
-.dropdown-item:active {
+.dropdown-item.active,.dropdown-item:active {
   color: var(--body-text-color);
   text-decoration: none;
   background-color: var(--grey-color);
-}
-
-/* modal  */
-.modal-header {
-  border-bottom: none;
 }
 
 /* form-control  */
@@ -236,80 +196,31 @@ margin-bottom: 0;
   box-shadow: none;
   color: var(--body-text-color);
 }
-
-.modal-backdrop {
-  --bs-backdrop-zindex: 999;
-  --bs-backdrop-bg: #000;
-  --bs-backdrop-opacity: 0.5;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: var(--bs-backdrop-zindex);
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--bs-backdrop-bg);
-}
-
 @media only screen and (max-width: 768px) {
   .nav {
     display: grid;
   }
-
-  /* .account {
-    justify-content: center !important;
-    margin: 70px 0px;
-  } */
 }
-
-@media only screen and (max-width: 1460px) and (min-width: 990px) {
-  a.login {
-    display: none;
-  }
-
-  button.signup {
-    display: none;
-  }
-
-  a.get-pro {
-    display: none;
-  }
-}
-
-/* Add this CSS to style the hero section */
 /* Add this CSS to style the hero section */
 #hero {
 background-color: #f2f2f2;
 margin-top: 0;
-
-
 }
-
-.hero-content {
-text-align: center;
-}
-
 .hero-content h1 {
 font-weight: bold;
 font-size: 100px;
-padding-top: 0px;
-margin-top: 0px;
 padding-bottom: 30px;
-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-color: #333;
 }
-
 .hero-content h2 {
 font-size: 50px;
-
+}
+.hero-content h1,.hero-content h2{
 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 color: #555;
 }
 
 .hero-content ul {
-padding-left: 0;
 list-style: none;
-margin: 0;
-
 }
 
 .hero-content li {
@@ -318,9 +229,6 @@ text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 color: #777;
 
 }
-
-
-
 .highlight {
 font-weight: bold;
 color: #00ced1;
@@ -331,10 +239,6 @@ color: #00ced1;
     text-align: left;
 }
 }
-
-
-
-
 /* service section  */
 
 .service-post {
@@ -345,26 +249,20 @@ color: #00ced1;
   background: var(--accent-color);
 }
 
-
 /* action section  */
-
 .action-column1 {
   background: var(--grey-color);
 }
-
 .action-column2 {
   background: var(--secondary-color);
 }
-
 h1.action-heading {
   color: var(--accent-color);
 }
-
 p.action-paragraph {
   color: var(--accent-color);
   font-size: 30px;
 }
-
 button.btn.btn-primary.first-button.action-button {
   --bs-btn-color: var(--secondary-color);
   --bs-btn-bg: var(--accent-color);
@@ -373,21 +271,15 @@ button.btn.btn-primary.first-button.action-button {
   --bs-btn-hover-bg: var(--secondary-color);
   --bs-btn-hover-border-color: var(--accent-color);
 }
-
-
-
-
 @media only screen and (max-width: 768px) {
   .footer-2-container {
     display: block !important;
   }
 }
-
 .list-styled {
   list-style: none;
   padding-left: 0;
 }
-
 .list-styled li {
   position: relative;
   padding-left: 30px;
@@ -396,10 +288,8 @@ button.btn.btn-primary.first-button.action-button {
   font-size: 18px;
   line-height: 1.6;
 }
-
 .list-styled li:before {
   content: '\2022'; /* Bullet point */
   position: absolute;
-  left: 0;
   color: blue;
 }

@@ -3,56 +3,56 @@
     <!-- Main Content -->
     <div class="content">
         <h2>Parcel Details</h2>
-        <form  [formGroup]="userForm" (submit)="onSubmit()">
+        <form  [formGroup]="userForm" (submit)="onSubmit()" action="">
             <div class="row" style="column-gap: 25px;">
                 <div class="col-md-6 sender-container">
                     <h3>Sender's Info</h3>
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Sender's Name"  formControlName="sender_name">
+                        <input type="text" name="sender_name" class="form-control" placeholder="Sender's Name"  formControlName="sender_name" required >
                     </div>
                     <div class="form-group">
                         <label class="form-label">Address</label>
-                        <textarea class="form-control" rows="4" placeholder="Sender's Address" formControlName="sender_address"></textarea>
+                        <textarea class="form-control" name="sender_addr" rows="4" placeholder="Sender's Address" formControlName="sender_address" required></textarea>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Pincode</label>
-                        <input type="text" pattern="[0-9]{6}" class="form-control" maxlength="6" placeholder="685543" formControlName="pincode_sender">
+                        <input type="text" pattern="[0-9]{6}" name="sender_pin" class="form-control" maxlength="6" placeholder="685543" formControlName="pincode_sender" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="abc123@gmail.com"  formControlName="sender_email">
+                        <input type="email" class="form-control" name="sender_email"placeholder="abc123@gmail.com"  formControlName="sender_email" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Contact No</label>
-                        <input type="tel" class="form-control" placeholder="9563454576">
+                        <input type="tel" class="form-control" name="sender_phoneno" placeholder="9563454576" formControlName="sender_contactno" required>
                     </div>
                 </div>
                 <div class="col-md-6 receiver-container">
                     <h3>Receiver's Info</h3>
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Receiver's Name" formControlName="receiver_name">
+                        <input type="text" name="receiver_name" class="form-control" placeholder="Receiver's Name" formControlName="receiver_name" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Address</label>
-                        <textarea class="form-control" rows="4" placeholder="Receiver's Address" formControlName="receiver_address"></textarea>
+                        <textarea class="form-control" name="receiver_addr" rows="4" placeholder="Receiver's Address" formControlName="receiver_address" required></textarea>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Pincode</label>
-                        <input type="text" pattern="[0-9]{6}" class="form-control" maxlength="6" placeholder="685543" formControlName="pincode_receiver">
+                        <input type="text" pattern="[0-9]{6}" name="receiver_pin" class="form-control" maxlength="6" placeholder="685543" formControlName="pincode_receiver" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="abc123@gmail.com" formControlName="receiver_email">
+                        <input type="email" class="form-control" name="receiver_email" placeholder="abc123@gmail.com" formControlName="receiver_email" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Contact No</label>
-                        <input type="tel" class="form-control" placeholder="9563454576">
+                        <input type="tel" class="form-control" name="receiver_phoneno" placeholder="9563454576" formControlName="receiver_contactno" required>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary" (click)="openModel()" type="submit" (click)="toggleField()">Save And Pay </button>
+            <button class="btn btn-primary" type="submit" (click)="toggleField()">Save And Pay </button>
         </form>
     </div>
     <div class="modal" id="myModal">
@@ -67,7 +67,7 @@
       
             <!-- Modal body -->
             <div class="modal-body">
-              your order id is{{orderId}}
+              your order id is {{orderId}}
             </div>
       
             <!-- Modal footer -->

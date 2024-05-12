@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterModule} from '@angular/router';
+import {  RouterLink, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IUser } from '../core/models/common.model';
 import { UserService } from '../core/services/user.service';
@@ -12,7 +12,8 @@ import { NavbarComponent } from "../navbar/navbar.component";
     standalone: true,
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
-    imports: [RouterModule, RouterLink, FormsModule, CommonModule, NavbarComponent]
+    imports: [RouterModule,RouterLink, FormsModule, CommonModule, NavbarComponent],
+    providers:[UserService],
 })
 
 
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit{
   selectedValues: string[] = [];
 selectedItem: string|null=null;
 
-  constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){ 
+  constructor(private userService:UserService,private db:AngularFireDatabase){ 
   }
   editExpense(key:string){
     console.log(key);
@@ -40,7 +41,6 @@ selectedItem: string|null=null;
     const currentUser=firebase.auth().currentUser;
     if(currentUser){
       const uid=currentUser.uid;
-      console.log(uid);
       
      this.updatestatusfield(key,selectedValue);
     }
@@ -56,6 +56,7 @@ selectedItem: string|null=null;
   }
   ngOnInit(): void {
     this. getAllDetails();
+    
   }
  
   getAllDetails(){
@@ -72,11 +73,12 @@ selectedItem: string|null=null;
             sender_address: detail.sender_address,
             pincode_sender: detail.pincode_sender,
             sender_email: detail.sender_email,
-            sender_contact: detail.sender_contact,
+            sender_contactno: detail.sender_contactno,
             receiver_name: detail.receiver_name,
             receiver_address: detail.receiver_address,
             pincode_receiver: detail.pincode_receiver,
             receiver_email: detail.receiver_email,
+            receiver_contactno:detail.receiver_contactno,
             payment:detail.payment,
             trackdetails:detail.trackdetails,
             

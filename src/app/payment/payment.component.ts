@@ -4,18 +4,22 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CheckoutService } from '../core/services/checkout.service';
+import { PaymentService } from '../payment.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 interface Order {
   orderId: string;
   senderName: string;
   receiverName: string;
-  paymentStatus?: boolean; // Track payment status
+  paymentStatus?: boolean;
+// Track payment status
 }
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [HttpClientModule], 
+  imports: [HttpClientModule,CommonModule,NavbarComponent], 
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css'],
 })
@@ -23,23 +27,26 @@ export class PaymentComponent implements OnInit {
   orders: Order[] = []; // List of orders
   paymentHandler: any; 
   currentUserUid: string | null = null;
+  dataFound: boolean=true;
 
   constructor(
     private checkout: CheckoutService,
     private afAuth: AngularFireAuth,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private paymentService: PaymentService,
   ) {}
 
   ngOnInit() {
     this.invokeStripe(); 
-    this.loadOrders();  // Load orders from Firebase
+    this.loadOrders();  
+  // Load orders from Firebase
   }
 
   loadOrders() {
     this.afAuth.authState.subscribe((user: any) => {
       if (user) {
         this.currentUserUid = user.uid; 
-        this.db
+      this.db
           .list('userdetails', (ref) => ref.orderByChild('user_uid').equalTo(this.currentUserUid))
           .snapshotChanges()
           .subscribe((snaps) => {
@@ -50,13 +57,16 @@ export class PaymentComponent implements OnInit {
               const receiverName = data?.receiver_name ?? '';
               const paymentStatus= data?.payment ?? false;
               return {
+                
                 orderId,
                 senderName,
                 receiverName,
                 paymentStatus, 
               };
             });
+            this.dataFound = this.orders.length > 0;
           });
+        
       }
     });
   }
@@ -73,17 +83,17 @@ export class PaymentComponent implements OnInit {
             const data: any = snap.payload.val();
             
            if (data.user_uid === this.currentUserUid && data.order_id===order.orderId) {
-                console.log('id',order.orderId);
-                 console.log('key',key);
-                 console.log(data.payment);
-                 this.db.object(`userdetails/${key}`).update({ ['payment']: true });
-                 
+                this.db.object(`userdetails/${key}`).update({ ['payment']: true });
+                
                  order.paymentStatus=data.payment;
+                 
               }
           })
         })
+
         this.checkout.makePayment(stripeToken).subscribe((data) => {
-          console.log('Payment Successful:', data);
+         // console.log('Payment Successful:', data);
+          
           this.removeOrder(order); // Optionally remove the order after payment
         });
       },
@@ -99,7 +109,7 @@ export class PaymentComponent implements OnInit {
   removeOrder(order: Order) {
     this.db.list('userdetails').remove(order.orderId).then(() => {
       this.orders = this.orders.filter((o) => o.orderId !== order.orderId);
-      console.log(`Order ${order.orderId} removed successfully.`);
+    //  console.log(`Order ${order.orderId} removed successfully.`);
     });
   }
 
@@ -114,7 +124,7 @@ export class PaymentComponent implements OnInit {
           key: 'pk_test_51P2vkoSAEiT15doWH3CqEmQ90JSv0gVIJAD4VYPRu70q4zSmM1rqR9bQkbxDtUvv0LrjSmCpGw684uG9q45AoOMD00ki5lysRn', 
           locale: 'auto',
           token: (stripeToken: any) => {
-            console.log('Stripe Token:', stripeToken);
+           // console.log('Stripe Token:', stripeToken);
           },
         });
       };
@@ -122,3 +132,5 @@ export class PaymentComponent implements OnInit {
     }
   }
 }
+
+

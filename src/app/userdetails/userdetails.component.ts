@@ -32,10 +32,12 @@ constructor(private fb: FormBuilder,private userServices: UserService,private ro
     sender_address: new FormControl('',),
     pincode_sender: new FormControl('',),
     sender_email: new FormControl('',),
+    sender_contactno:new FormControl(''),
     receiver_name: new FormControl('',),
     receiver_address: new FormControl('',),
     pincode_receiver: new FormControl('',),
     receiver_email: new FormControl('',),
+    receiver_contactno:new FormControl(''),
     user_uid:uid,
     payment:false,
     trackdetails:{
@@ -75,6 +77,7 @@ ngOnInit(): void {
     this.currentUserUid = null;
   }
 });
+
 }
 toggleField() {
   
@@ -85,8 +88,17 @@ toggleField() {
 onSubmit(){
   //if(this.userForm.valid){
     //console.log(4)
+    if (this.userForm.valid) {
+    this.openModel();
+  
+    // Optionally, you can display a message to the user indicating that the form is invalid.
+  
       this.userServices.addDetail(this.userForm.value);
-      
+    }
+    else{
+      alert('Error')
+    }
+} 
 
       //this.router.navigate(['/orderdetails']);
       
@@ -95,7 +107,7 @@ onSubmit(){
     //console.log(2)
     //this.userForm.markAllAsTouched();
   //}
-}
+
 generateGUID():string {
   const timestamp = new Date().getTime();
   const randnum=Math.floor(Math.random()*10);

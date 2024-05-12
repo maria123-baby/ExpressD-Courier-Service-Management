@@ -1,10 +1,15 @@
+/* Default styles */
 .sidebar {
     background: linear-gradient(135deg, #2c3e50, #34495e);
-    height: 100%; /* Ensure full height */
+    height: 100vh; /* Full height of the viewport */
     width: 230px; /* Set a fixed width */
     color: white;
-    position:fixed;
-    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure it's above other content */
+    overflow-y: auto; /* Allow vertical scrolling if needed */
+    transition: width 0.5s; /* Smooth transition for width changes */
 }
 
 .sidebar .sidebar-link {
@@ -15,7 +20,7 @@
     font-size: 18px;
     text-decoration: none;
     color: white;
-    transition: all 0.5s;
+    transition: background-color 0.5s; /* Smooth background color transition */
 }
 
 .sidebar .sidebar-link.menu {
@@ -28,5 +33,12 @@
 }
 
 .sidebar .sidebar-link:hover {
-    background-color: rgba(255, 255, 255, 0.15); /* Hover effect for all except 'Menu' */
+    background-color: rgb(30, 84, 92); /* Hover effect for all except 'Menu' */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 25%; /* Full width on smaller screens */
+    }
 }

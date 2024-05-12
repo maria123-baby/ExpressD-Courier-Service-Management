@@ -91,7 +91,6 @@ a {
     background-color: #3498db;
     color: #fff;
 }
-
 /* Header Styles */
 .expressd-header {
     text-align: center;
@@ -101,27 +100,23 @@ a {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #fff;
 }
-
 .expressd-header h1 {
     font-size: 50px;
     margin: 0;
     font-weight: bold;
     text-transform: uppercase;
 }
-
 .expressd-header h3 {
     font-size: 20px;
     margin: 10px 0 0;
     font-weight: normal;
 }
-
 /* Feature Section Styles */
 .feature-paragraph {
     font-size: 24px;
     line-height: 36px;
     color: #333;
 }
-
 .feature-post {
     background: #f9f9f9;
     border: 1px solid #e1e1e1;
@@ -129,14 +124,12 @@ a {
     border-radius: 8px;
     margin-bottom: 30px;
 }
-
 @media only screen and (max-width: 768px) {
     .feature-paragraph {
         font-size: 18px;
         line-height: 30px;
     }
 }
-
 /* Navigation Styles */
 .navigation {
     background-color: #3498db;
@@ -145,11 +138,9 @@ a {
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .brand-logo img {
     max-width: 150px;
 }
-
 .nav-link h5 {
     margin: 0;
     color: #fff;
@@ -157,41 +148,34 @@ a {
     font-weight: bold;
     transition: color 0.3s;
 }
-
 .nav-link h5:hover {
     color: #f39c12;
 }
-
 .navbar-toggler {
     color: #fff;
     border-color: #fff;
 }
-
 .navbar-toggler:focus {
     outline: none;
 }
-
 /* Action Section Styles */
 .action-column1, .action-column2 {
     background-color: #f2f2f2;
     border-radius: 8px;
     padding: 30px;
 }
-
 .action-heading {
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 30px;
     color: #333;
 }
-
 .action-paragraph {
     font-size: 20px;
     line-height: 1.5;
     margin-bottom: 30px;
     color: #333;
 }
-
 .action-button {
     font-size: 20px;
     border-radius: 8px;
@@ -199,7 +183,6 @@ a {
     color: #fff;
     transition: background-color 0.3s, color 0.3s;
 }
-
 .action-button:hover {
     background-color: #f39c12;
 }

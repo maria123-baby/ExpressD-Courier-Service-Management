@@ -1,17 +1,12 @@
-import { Component, NgModule, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
-import firebase from 'firebase/compat/app';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { UserService } from '../core/services/user.service';
-import { Router } from '@angular/router';
 import { IUser } from '../core/models/common.model';
-import { Observable, forkJoin, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { PaymentService } from '../payment.service';
 export interface Step {
   label: string;
   completed: boolean;
@@ -32,16 +27,17 @@ export interface Step {
     imports: [MatStepperModule, MatIconModule, CommonModule, NavbarComponent]
 })
 
-export class TrackComponent {
+export class TrackComponent implements OnInit{
   isOrderTrackingStarted = false;
   isValidOrderId=true;
   showMessage=false;
-  sender='';
-  receiver='';
+  sender=''|| null;
+  booked:boolean=true;
+  receiver='' || null;
   [x: string]: any;
   details: IUser[]=[];
   
-  constructor(private userService:UserService, private router:Router,private db:AngularFireDatabase){ 
+  constructor(private db:AngularFireDatabase,private paymentService: PaymentService){ 
   }
   steps: Step[] = [
     
@@ -53,26 +49,27 @@ export class TrackComponent {
     { label: 'Out_for_Delivery', completed: false },
     { label: 'Delivered', completed: false }
   ];
- 
+
+ngOnInit(): void {
+
+}
   trackOrder(orderNum:string):void {
+  
     setTimeout(() => {
       this.showMessage = true;
-    }, 3000); 
+    }, 500); 
    this.isValidOrderId=false;
-  
+
     this.steps.forEach(step => step.completed = false);
 
   
     // Fetch order details from Firebase
    this.db.list('userdetails').snapshotChanges().subscribe(snaps => {
-      snaps.forEach(snap => {
+    snaps.forEach(snap => {
         const key = snap.key;
         const data: any = snap.payload.val();
-          this.isOrderTrackingStarted = true;
         
-        if (data.order_id === orderNum) {
-          console.log(key);
-          console.log(data.order_id);
+        if (data.order_id === orderNum && data.payment) {
           
             this.isValidOrderId = true;
          
@@ -82,20 +79,30 @@ export class TrackComponent {
           this.steps.forEach(step => {
             if (data.trackdetails && data.trackdetails[step.label]) {
               //console.log(data.trackdetails[step.label]);
-              console.log(step);
               step.completed = true;
               
             }
            
           
           });
+        
         }
-       
+        else if(data.order_id === orderNum && data.payment===false)
+          {
+            this.booked=false
+          }
       });
-     
+    
     });
+    if (!this.booked) {
+      this.isValidOrderId = false;
+      this.sender = null;
+      this.receiver = null;
+      this.steps.forEach(step => {
+        step.completed = false;
+      });
+    }
     
-    
-    
+    this.isOrderTrackingStarted = true;
   }
   }

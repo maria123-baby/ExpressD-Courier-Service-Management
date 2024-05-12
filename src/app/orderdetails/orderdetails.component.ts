@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { PaymentService } from '../payment.service';
 interface Order {
   orderId: string;
   senderName: string;
@@ -12,11 +13,10 @@ interface Order {
   senderAddress:string;
   senderPincode:string;
   senderEmail:string;
-  senderContact:string;
   receiverAddress:string;
   receiverPincode:string;
   receiverEmail:string;
- 
+  payment:boolean;
   // Add other properties as needed
 }
 
@@ -30,7 +30,9 @@ interface Order {
 export class OrderdetailsComponent implements OnInit{
   currentUserUid: string | null = null;
   orders: Order[] = [];
-  constructor(private afAuth: AngularFireAuth,private db:AngularFireDatabase){}
+  afAuth=inject(AngularFireAuth)
+  dataFound: boolean=true;
+  constructor(private db:AngularFireDatabase,private paymentService:PaymentService){}
  ngOnInit(): void {
   this.afAuth.authState.subscribe((user:any) => {
     if (user) {
@@ -55,11 +57,10 @@ export class OrderdetailsComponent implements OnInit{
             senderAddress:data.sender_address,
             senderPincode:data.pincode_sender,
             senderEmail:data.sender_email,
-            senderContact:data.sender_contact,
             receiverAddress:data.receiver_address,
             receiverPincode:data.pincode_receiver,
             receiverEmail:data.receiver_email,
-            
+            payment:data.payment,
             // Add other properties as needed
           };
           this.orders.push(order);
@@ -68,10 +69,14 @@ export class OrderdetailsComponent implements OnInit{
         
 
           })
+          if(this.orders.length===0){
+            this.dataFound=false;
+            this.paymentService.setnobooked(false);
+          }
           //console.log(data.order_id);
-          
     
           });
+          
         
       });
   }

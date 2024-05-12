@@ -20,7 +20,7 @@
                                 }
                             </style>
                          </div>
-                         <div *ngIf="step.completed">Hello
+                         <div *ngIf="step.completed">
                             <style >
                                 ::ng-deep .mat-step-header .mat-step-icon-selected::after{
                                     background-color:blue  ;
@@ -47,7 +47,10 @@
             </div>
             
             <div *ngIf="showMessage">
-            <div class="text-danger" *ngIf="!isValidOrderId">Invalid Order Id</div></div>
-        
+            <div class="text-danger" *ngIf="!isValidOrderId && booked">Invalid Order Id</div>
+            
+            </div>
+            <div *ngIf="!booked" style="padding-top:5px;color:grey">Payment not Done</div>
     </div>
+   
 </div>
